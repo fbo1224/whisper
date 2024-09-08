@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.notice.model.repository.NoticeMapper">
+
+	<select id="findAll" resultType="Notice">
+		SELECT
+		       NOT_NO notNo,
+		       NOT_WRITER notWriter,
+		       NOT_TITLE notTitle,
+		       NOT_CONTENT notContent,
+		       NOT_DATE notDate,
+		       NOT_STATUS notStatus
+		  FROM
+		       TB_NOTICE
+		 ORDER
+		    BY
+		       NOT_DATE
+	</select>
+
+</mapper>

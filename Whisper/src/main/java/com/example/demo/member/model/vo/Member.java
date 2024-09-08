@@ -2,8 +2,12 @@ package com.example.demo.member.model.vo;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.ToString;
 
 @Entity
+@Table(name = "TB_NOTICE")
+@ToString
 public class Member {
 	
 	@Id

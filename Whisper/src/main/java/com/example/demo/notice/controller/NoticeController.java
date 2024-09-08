@@ -20,7 +20,8 @@ public class NoticeController {
     
     @GetMapping
     public void findAll() {
-    	List<Notice> noticeList = 
+    	List<Notice> noticeList = noticeService.findAll();
+    	System.out.println(noticeList);
     }
 
     /*
