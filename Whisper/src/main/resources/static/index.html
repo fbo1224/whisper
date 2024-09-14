@@ -7,46 +7,188 @@
     div{
     	border: 1px solid red; box-sizing: border-box;
     }
-	
+    
 	/*header*/
 	#header{
+		width:1200px;
+		height:200px;
+		margin:auto;
+		display: flex;
+        justify-content: center; /* 수평 중앙 정렬 */
+        align-items: center;    /* 수직 중앙 정렬 */
+	}
 	
+	#title{
+		font-size:50px;
+		font-weight:bolder;
+		color:green;
+	}
+	
+	#loginArea{
+		float:right;
+		width:200px;
+		height:50px;
+		font-size:20px;
+	}
+	
+	.common{
+		text-decoration:none;
+		color:gray;
+	}
+	
+	.common:hover{
+		color:green;
 	}
 	
 	/*main*/
-    #wrap{
+    #content{
     	width: 1200px;
+    	height:500px;
     	margin: auto;
     }
     
-    #content{
-    	width: 900px;
-        height: auto;
-        margin: auto;
+    #friendList{
+    	width: 400px;
+    	height: 400px;
+    	border: 1px solid green;
+    	border-radius:50px;
+    	float:left;
     }
-	
+    
+    #friendTitle{
+    	height:50px;
+    	display: flex;
+        justify-content: center; /* 수평 중앙 정렬 */
+        align-items: center;    /* 수직 중앙 정렬 */
+    }
+    
+    #friendListTitle{
+    	font-size:20px;
+    	font-weight:bolder;
+    }
+    
+    #myInfo{
+    	width: 400px;
+    	height: 400px;
+    	border: 1px solid green;
+    	border-radius:50px;
+    	float:right;
+    }
+    
+    #profile{
+    	height:300px;
+    }
+    
+    #infoLink{
+    	height:100px;
+    }
+    
+    
+    #myFriend{
+    	float:right;
+    }
+    
 	/*footer*/
+	#footer{
+		width:1200px;
+		height:150px;
+		margin:auto;
+	}
 	
+	#footer > div{
+           width: 100%;
+       }
+
+    #footer_2{
+        height: 40%;
+        text-align: center;
+        padding-top: 10px;
+    }
+
+     #footer_3{
+         height: 60%;
+     }
+
+     #footer_2 > a{
+         text-decoration : none;
+         color: black;
+         margin: 15px;
+         vertical-align: middle;
+         font-size: 15px;
+     }
+
+     #footer_3 > p {
+         font-size: 13px;
+         text-align: center;
+     }
+
+     
+     #footerWrap{
+		width: 1200px;
+     	height: 180px;
+	 }
 	
 </style>
 </head>
 <body>
 
 	<div id="header">
-	
+		<span id="title">WHISPER</span>
+		
+		<div id='loginArea'>
+			<a href='' class="common">로그인</a>
+			<a href='' class="common">온/오프</a>
+		</div>
 	</div>
 	
-	<div id="wrap">
 	
-		<div id="content">
+	
+	<div id="content">
+	
+		<div id="friendList">
 		
+			<div id="friendTitle">
+				<span id="friendListTitle">친구목록</span>
+			</div>
+			
+			<div id="myFriendTitle">
+				<span id="myFriend">내 친구(1/10)</span>
+			</div>
+			
+		</div>
+		
+		<div id="myInfo">
+			<div id="profile">
+				<h1>image</h1>
+			</div>
+			
+			<div id="infoLink">
+				
+			</div>
 		</div>
 	
 	</div>
+	
+	
+	
+	<div id="footer">
+		<div id="footerWrap">
+	        <div id="footer_2">
+	            <p>개인정보보호정책 &nbsp;|&nbsp;이용약관 &nbsp;|&nbsp;청소년보호정책 &nbsp;|&nbsp;©2024 Whisper</p>
+	        </div>
+	        <div id="footer_3">
+	            <p>
+					(주) 위스퍼
+					주소 : 서울특별시 중구 남대문로 120 그레이츠 청계(구 대일빌딩) 2F <br>
+					대표이사 : 유동혁  | 책임자 : 유동혁 ｜  개인정보관리책임자 : 유동혁 <br>
+					전자우편주소 : help@whisper.kr | 전화번호 : 1544-9970 
+	            </p>
+	        </div>
+	    </div>
+	</div>
 
 
 
-	<h1>Whisper Index</h1>
 	
 	
 	
