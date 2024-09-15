@@ -30,7 +30,7 @@
 	#title{
 		font-size:50px;
 		font-weight:bolder;
-		color:green;
+		color:#FF9614;
 	}
 	
 	#loginArea{
@@ -40,17 +40,40 @@
 		font-size:17px;
 	}
 	
-	#loginArea > a{
-
-	}
-	
 	.common{
 		text-decoration:none;
 		color:gray;
 	}
 	
 	.common:hover{
-		color:green;
+		color:#FF9614;
+	}
+	
+	#onOffDiv{
+		width:30px;
+		height:30px;
+		border-radius:50px;
+		display:inline-block;
+		float:right;
+		margin-top:10px;
+		background-color:greenyellow;
+	}
+	
+	.headerBtn{
+		width:70px;
+		height:30px;
+		border:none;
+		font-size:15px;
+		color:#FF9614;
+		background-color:white;
+		margin-left:25px;
+		margin-top:10px;
+	}
+	
+	.headerBtn:hover{
+		font-weight:bolder;
+		background-color:#FF9614;
+		color:white;
 	}
 	
 	/*main*/
@@ -63,7 +86,7 @@
     #friendList{
     	width: 400px;
     	height: 400px;
-    	border: 2px solid green;
+    	border: 2px solid #FF9614;
     	border-radius:50px;
     	float:left;
     	margin-top:50px;
@@ -85,7 +108,7 @@
     #myInfo{
     	width: 400px;
     	height: 400px;
-    	border: 2px solid green;
+    	border: 2px solid #FF9614;
     	border-radius:50px;
     	float:right;
     	margin-top:50px;
@@ -155,15 +178,15 @@
 		</div>
 		
 		<div id="header_2">
+			<div id="onOffDiv"></div>
 			<div id='loginArea'>
-				<a href='' class="common">로그인</a>
-				<a href='' class="common">온/오프</a>
+				<button type="button" class="headerBtn">ON/OFF</button>
 				
 				<!-- Trigger the modal with a button -->
-				<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">로그인</button>
+				<button type="button" class="headerBtn" data-toggle="modal" data-target="#loginModal">LOGIN</button>
 				
 				<!-- Modal -->
-				<div id="myModal" class="modal fade" role="dialog">
+				<div id="loginModal" class="modal fade" role="dialog">
 				  <div class="modal-dialog modal-sm">
 				
 				    <!-- Modal content-->
@@ -178,8 +201,7 @@
 				        
 				      </div>
 				      <div class="modal-footer">
-				      	<button type="submit" class="btn btn-sm btn-primary">확인</button>
-				        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">취소</button>
+				      	<button type="submit" class="btn btn-outline-warning">확인</button>
 				      </div>
 				    </div>
 				    <!-- Modal End -->
@@ -214,8 +236,55 @@
 			</div>
 			
 			<div id="infoLink">
-				<a href=''>프로필 변경</a>
-				<a href=''>상태 메시지 설정</a>
+				
+				<!-- 프로필 변경 모달 -->
+				<button type="button" class="profileModifyBtn" data-toggle="modal" data-target="#profileModify">프로필 변경</button>
+				
+				<!-- Modal -->
+				<div id="profileModify" class="modal fade" role="dialog">
+				  <div class="modal-dialog">
+				
+				    <!-- Modal content-->
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h4 class="modal-title">프로필 변경</h4>
+				      </div>
+				      <div class="modal-body">
+				      	<input>
+				      </div>
+				      <div class="modal-footer">
+				      	<button type="submit" class="btn btn-outline-warning">확인</button>
+				      </div>
+				    </div>
+				
+				  </div>
+				</div>
+				<!-- Modal End -->
+				
+				<!--상태메시지 변경 모달 -->
+				<button type="button" class="profileModifyBtn" data-toggle="modal" data-target="#myMsgModify">상태메시지 변경</button>
+				
+				<!-- Modal -->
+				<div id="myMsgModify" class="modal fade" role="dialog">
+				  <div class="modal-dialog">
+				
+				    <!-- Modal content-->
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h4 class="modal-title">상태 메시지 변경</h4>
+				      </div>
+				      <div class="modal-body">
+				        <input type="text" name="myMsg">
+				      </div>
+				      <div class="modal-footer">
+				      	<button type="submit" class="btn btn-outline-warning">확인</button>
+				      </div>
+				    </div>
+				
+				  </div>
+				</div>
+				<!-- Modal End -->
+								
 			</div>
 		</div>
 	

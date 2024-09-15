@@ -20,5 +20,6 @@ public class Member {
 	private String joinDate;
 	private String memSort;  // 회원구분
 	private String memStatus;
+	private String myMsg;
 	
 }
