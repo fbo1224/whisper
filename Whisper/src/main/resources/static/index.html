@@ -128,6 +128,23 @@
     	float:right;
     }
     
+    .profileModifyBtn{
+    	width:150px;
+		height:30px;
+		border:none;
+		font-size:15px;
+		color:#FF9614;
+		background-color:white;
+		margin-left:30px;
+		margin-top:10px;
+    }
+    
+    .profileModifyBtn:hover{
+    	font-weight:bolder;
+		background-color:#FF9614;
+		color:white;
+    }
+    
 	/*footer*/
 	#footer{
 		width:1200px;
@@ -250,7 +267,7 @@
 				        <h4 class="modal-title">프로필 변경</h4>
 				      </div>
 				      <div class="modal-body">
-				      	<input>
+				      	<input type="file">
 				      </div>
 				      <div class="modal-footer">
 				      	<button type="submit" class="btn btn-outline-warning">확인</button>
@@ -274,7 +291,7 @@
 				        <h4 class="modal-title">상태 메시지 변경</h4>
 				      </div>
 				      <div class="modal-body">
-				        <input type="text" name="myMsg">
+				        <input type="text" name="myMsg" placeholder="현재 상태메시지">
 				      </div>
 				      <div class="modal-footer">
 				      	<button type="submit" class="btn btn-outline-warning">확인</button>
