@@ -123,6 +123,14 @@
     
     #profile{
     	height:350px;
+    	display: flex;
+        justify-content: center; /* 가로 중앙 정렬 */
+        align-items: center;    /* 세로 중앙 정렬 */
+    }
+    
+    #profileImg{
+    	max-width: 250px;
+        max-height: 250px;
     }
     
     #infoLink{
@@ -152,6 +160,7 @@
 		background-color:#FF9614;
 		color:white;
     }
+    
     
 	/*footer*/
 	#footer{
@@ -257,7 +266,7 @@
 		
 		<div id="myInfo">
 			<div id="profile">
-				<h1>image</h1>
+				<img id="profileImg" src="images/profile.png"/>
 			</div>
 			
 			<div id="infoLink">
