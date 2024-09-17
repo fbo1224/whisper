@@ -19,7 +19,7 @@ public class MemberController {
 	@PostMapping("loginUser")
 	public String userLogin(Member member, HttpSession session, RedirectAttributes redirectAttributes) {
 		
-		System.out.println("member : " + member);
+		System.out.println("member(login) : " + member);
 		
 		Member loginUser = memberService.findByMemIdAndMemPwd(member);
 		
