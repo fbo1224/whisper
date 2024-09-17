@@ -219,12 +219,12 @@
     <div id="flashMessage" data-message="${message}"></div>
 
     <script>
-       (() => {
-            var message = $('#flashMessage').data('message');
-            if (message) {
-                alert(message);
-            }
-        });
+	    $(document).ready(function() {
+	        var message = $('#flashMessage').data('message');
+	        if (message) {
+	            alert(message);
+	        }
+	    });
     </script>
 
 	<div id="header">

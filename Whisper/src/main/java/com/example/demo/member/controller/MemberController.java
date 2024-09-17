@@ -19,6 +19,8 @@ public class MemberController {
 	@PostMapping("loginUser")
 	public String userLogin(Member member, HttpSession session, RedirectAttributes redirectAttributes) {
 		
+		System.out.println("member : " + member);
+		
 		Member loginUser = memberService.findByMemIdAndMemPwd(member);
 		
 		if(loginUser != null) {
@@ -26,7 +28,7 @@ public class MemberController {
 			return "redirect:/";
 		} else {
 	        redirectAttributes.addFlashAttribute("message", "로그인에 실패하였습니다.");
-	        return "redirect:/";
+	        return "redirect:/login";
 		}
 	}
 	
