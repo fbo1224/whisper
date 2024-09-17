@@ -215,6 +215,17 @@
 </style>
 </head>
 <body>
+	<!-- 메시지 표시 -->
+    <div id="flashMessage" data-message="${message}"></div>
+
+    <script>
+       (() => {
+            var message = $('#flashMessage').data('message');
+            if (message) {
+                alert(message);
+            }
+        });
+    </script>
 
 	<div id="header">
 		<div id="header_1">
@@ -242,8 +253,8 @@
 			      	  <form action="/loginUser" method="post">
 				      	<div class="modal-body">
 				      
-				        <input type="text" placeholder="ID" name="memId" maxlength="12">
-				        <input type="password" placeholder="PASSWORD" name="memPwd" maxlength="15">
+				        <input type="text" placeholder="ID" name="memId" maxlength="12" required>
+				        <input type="password" placeholder="PASSWORD" name="memPwd" maxlength="15" required>
 				        
 				      </div>
 				      <div class="modal-footer">
@@ -253,16 +264,6 @@
 				      
 				    </div>
 				    <!-- Modal End -->
-				    
-				    <script>
-				        $(document).ready(function() {
-				            var message = $('#flashMessage').data('message');
-				            if (message) {
-				                alert(message);
-				            }
-				        });
-				    </script>
-				    <div id="flashMessage" data-message="${message}"></div>
 				
 				  </div>
 				</div>
@@ -321,7 +322,7 @@
 				        <h4 class="modal-title">프로필 변경</h4>
 				      </div>
 				      <div class="modal-body">
-				      	<input type="file">
+				      	<input type="file" required>
 				      </div>
 				      <div class="modal-footer">
 				      	<button type="submit" class="btn btn-outline-warning">확인</button>
@@ -345,7 +346,7 @@
 				        <h4 class="modal-title">상태 메시지 변경</h4>
 				      </div>
 				      <div class="modal-body">
-				        <input id="myMsgInput" type="text" name="myMsg" placeholder="현재 상태메시지" maxlength="13">
+				        <input id="myMsgInput" type="text" name="myMsg" placeholder="현재 상태메시지" maxlength="13" required>
 				      </div>
 				      <div class="modal-footer">
 				      	<button type="submit" class="btn btn-outline-warning">확인</button>
