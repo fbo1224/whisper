@@ -347,12 +347,16 @@
 				      <div class="modal-header">
 				        <h4 class="modal-title">상태 메시지 변경</h4>
 				      </div>
-				      <div class="modal-body">
-				        <input id="myMsgInput" type="text" name="myMsg" placeholder="현재 상태메시지" maxlength="13" required>
-				      </div>
-				      <div class="modal-footer">
-				      	<button type="submit" class="btn btn-outline-warning">확인</button>
-				      </div>
+				      
+				      <form action="/msgModify" method="get">
+					      <div class="modal-body">
+					        <input id="myMsgInput" type="text" name="myMsg" placeholder="현재 상태메시지" maxlength="13" required>
+					      </div>
+					      <div class="modal-footer">
+					      	<button type="submit" class="btn btn-outline-warning">확인</button>
+					      </div>
+				      </form>
+				      
 				    </div>
 				
 				  </div>

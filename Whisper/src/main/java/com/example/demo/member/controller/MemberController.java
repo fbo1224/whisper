@@ -1,6 +1,7 @@
 package com.example.demo.member.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -30,6 +31,12 @@ public class MemberController {
 	        redirectAttributes.addFlashAttribute("message", "로그인에 실패하였습니다.");
 	        return "redirect:/login";
 		}
+	}
+	
+	@GetMapping("msgModify")
+	public String modifyMsg() {
+		
+		return "";
 	}
 	
 }
