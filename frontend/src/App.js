@@ -105,8 +105,8 @@ const App = () => {
             id="onOffDiv"
             style={{
               backgroundColor: isOn ? 'greenyellow' : 'red',
-              width: '50px',
-              height: '50px',
+              width: '30px',
+              height: '30px',
             }}
           ></div>
 
@@ -170,6 +170,8 @@ const App = () => {
         <div id="myInfo">
           <div id="profile">
             <img id="profileImg" src={profileImg} alt="Profile" />
+
+            <div id="myMsg">상태메시지가 표시됩니다.</div>
           </div>
 
           <div id="infoLink">

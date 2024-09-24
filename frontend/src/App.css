@@ -48,12 +48,9 @@ input:focus{
 }
 
 #onOffDiv{
-  width:30px;
-  height:30px;
   border-radius:50px;
   float:right;
   margin-top:10px;
-  background-color:greenyellow;
   border: 1px solid #FF9614;
 }
 
@@ -120,11 +117,25 @@ input:focus{
   display: flex;
   justify-content: center; /* 가로 중앙 정렬 */
   align-items: center;    /* 세로 중앙 정렬 */
+  position: relative;
+  text-align: center;
+
+}
+
+#myMsg{
+  position: absolute;
+  width:100%;
+  height:30px;
+  top:0px;
+  z-index: 1;
+  font-weight: bolder;
+  font-size: 20px;
 }
 
 #profileImg{
   max-width: 250px;
   max-height: 250px;
+  z-index: 2;
 }
 
 #infoLink{
