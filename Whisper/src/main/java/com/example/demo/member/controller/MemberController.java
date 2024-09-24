@@ -17,6 +17,7 @@ public class MemberController {
 	
 	private final MemberService memberService;
 	
+	
 	@PostMapping("loginUser")
 	public String userLogin(Member member, HttpSession session, RedirectAttributes redirectAttributes) {
 		
