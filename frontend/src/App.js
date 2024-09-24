@@ -15,6 +15,8 @@ const App = () => {
   /*로그인*/
   const [loginId, setLoginId] = useState(''); // 로그인 ID 상태
   const [loginPwd, setLoginPwd] = useState(''); // 로그인 비밀번호 상태
+  const [errorMessage, setErrorMessage] = useState(''); // 오류 메시지 상태 추가
+
 
   const handleLoginSubmit = (event) => {
     event.preventDefault(); // 기본 폼 제출 방지
@@ -22,20 +24,23 @@ const App = () => {
     axios.post('http://localhost:9001/member/loginUser', {
       memId: loginId,
       memPwd: loginPwd,
+    }, {
+      withCredentials: true, // 쿠키를 포함하도록 설정
     })
       .then(response => {
         console.log('로그인 성공:', response.data);
         // 로그인 성공 시 처리
         handleLoginClose(); // 모달 닫기
-    })
+      })
       .catch(error => {
         console.error('로그인 실패:', error);
-        // 로그인 실패 시 처리 (메시지 표시 등)
-    });
+        setErrorMessage(error.response?.data.message || '로그인에 실패하였습니다.'); // 서버로부터 받은 메시지 또는 기본 메시지
+      });
   };
+  
 
   useEffect(() => {
-    
+
     // 백엔드 API에 GET 요청
     axios.get('http://localhost:9001/api/data')
       .then(response => {
@@ -122,6 +127,7 @@ const App = () => {
           <Modal.Title>Login</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          {errorMessage && <div className="alert alert-danger">{errorMessage}</div>} {/* 오류 메시지 표시 */}
           <form onSubmit={handleLoginSubmit}>
             <input
               type="text"

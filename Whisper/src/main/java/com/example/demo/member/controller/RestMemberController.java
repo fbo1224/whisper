@@ -19,14 +19,13 @@ import lombok.RequiredArgsConstructor;
 @RestController // @Controller 대신 사용
 @RequiredArgsConstructor
 @RequestMapping("/member")
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true") // React가 실행되는 도메인
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class RestMemberController {
 	
 	private final MemberService memberService;
 	
 	@PostMapping("/loginUser")
 	public ResponseEntity<?> userLogin(@RequestBody Member member, HttpSession session) {
-		System.out.println("member(login) : " + member);
 		
 		Member loginUser = memberService.findByMemIdAndMemPwd(member);
 		
@@ -35,7 +34,7 @@ public class RestMemberController {
 			return ResponseEntity.ok(loginUser); // 로그인 성공 시 사용자 정보를 반환
 		} else {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-					.body(Collections.singletonMap("message", "로그인에 실패하였습니다.")); // 로그인 실패 시 메시지 반환
+					.body(Collections.singletonMap("message", "로그인에 실패하였습니다."));
 		}
 	}
 }
