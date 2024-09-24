@@ -35,6 +35,7 @@ const App = () => {
   };
 
   useEffect(() => {
+    
     // 백엔드 API에 GET 요청
     axios.get('http://localhost:9001/api/data')
       .then(response => {

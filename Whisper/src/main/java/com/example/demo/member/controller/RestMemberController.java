@@ -1,0 +1,41 @@
+package com.example.demo.member.controller;
+
+import java.util.Collections;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.member.model.service.MemberService;
+import com.example.demo.member.model.vo.Member;
+
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
+
+@RestController // @Controller 대신 사용
+@RequiredArgsConstructor
+@RequestMapping("/member")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true") // React가 실행되는 도메인
+public class RestMemberController {
+	
+	private final MemberService memberService;
+	
+	@PostMapping("/loginUser")
+	public ResponseEntity<?> userLogin(@RequestBody Member member, HttpSession session) {
+		System.out.println("member(login) : " + member);
+		
+		Member loginUser = memberService.findByMemIdAndMemPwd(member);
+		
+		if (loginUser != null) {
+			session.setAttribute("loginUser", loginUser);
+			return ResponseEntity.ok(loginUser); // 로그인 성공 시 사용자 정보를 반환
+		} else {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+					.body(Collections.singletonMap("message", "로그인에 실패하였습니다.")); // 로그인 실패 시 메시지 반환
+		}
+	}
+}
