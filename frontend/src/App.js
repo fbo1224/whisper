@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap 사용을 위한 CSS
 import { Modal, Button } from 'react-bootstrap'; // Bootstrap의 Modal 사용
 
 import './App.css';
+import profileImg from './images/profile.png';
 
 
 
@@ -123,7 +124,7 @@ const App = () => {
         {/* 내 정보 */}
         <div id="myInfo">
           <div id="profile">
-            <img id="profileImg" src="images/profile.png" alt="profile" />
+            <img id="profileImg" src={profileImg} alt="Profile" />
           </div>
 
           <div id="infoLink">
