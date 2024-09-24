@@ -1,8 +1,10 @@
 package com.example.demo.member.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.member.model.service.MemberService;
@@ -13,14 +15,16 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/member")
+@CrossOrigin(origins = "http://localhost:3000") // React가 실행되는 도메인
 public class MemberController {
 	
 	private final MemberService memberService;
 	
 	
-	@PostMapping("loginUser")
+	@PostMapping("/loginUser")
 	public String userLogin(Member member, HttpSession session, RedirectAttributes redirectAttributes) {
-		
+		/*
 		System.out.println("member(login) : " + member);
 		
 		Member loginUser = memberService.findByMemIdAndMemPwd(member);
@@ -31,7 +35,8 @@ public class MemberController {
 		} else {
 	        redirectAttributes.addFlashAttribute("message", "로그인에 실패하였습니다.");
 	        return "redirect:/login";
-		}
+		}*/
+		return "로그인메서드 작동";
 	}
 	
 	@GetMapping("msgModify")

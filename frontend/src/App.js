@@ -12,7 +12,28 @@ import profileImg from './images/profile.png';
 
 const App = () => {
   const [data, setData] = useState('');
-  
+  /*로그인*/
+  const [loginId, setLoginId] = useState(''); // 로그인 ID 상태
+  const [loginPwd, setLoginPwd] = useState(''); // 로그인 비밀번호 상태
+
+  const handleLoginSubmit = (event) => {
+    event.preventDefault(); // 기본 폼 제출 방지
+    // 백엔드에 로그인 요청
+    axios.post('http://localhost:9001/member/loginUser', {
+      memId: loginId,
+      memPwd: loginPwd,
+    })
+      .then(response => {
+        console.log('로그인 성공:', response.data);
+        // 로그인 성공 시 처리
+        handleLoginClose(); // 모달 닫기
+    })
+      .catch(error => {
+        console.error('로그인 실패:', error);
+        // 로그인 실패 시 처리 (메시지 표시 등)
+    });
+  };
+
   useEffect(() => {
     // 백엔드 API에 GET 요청
     axios.get('http://localhost:9001/api/data')
@@ -22,6 +43,9 @@ const App = () => {
       .catch(error => {
         console.error("There was an error fetching the data!", error);
       });
+
+      
+
   }, []);  // 빈 배열로 설정하면 컴포넌트가 처음 렌더링될 때 한 번 실행됨
 
   // 상태 관리 (on/off 상태, 로그인 모달, 프로필 모달, 상태메시지 모달)
@@ -34,7 +58,7 @@ const App = () => {
   const handleOnOff = () => {
     setIsOn(prevState => !prevState);
   };
-
+  /*모달*/
   const handleLoginClose = () => setShowLoginModal(false);
   const handleLoginShow = () => setShowLoginModal(true);
 
@@ -96,17 +120,31 @@ const App = () => {
         <Modal.Header closeButton>
           <Modal.Title>Login</Modal.Title>
         </Modal.Header>
-        <form action="/loginUser" method="post">
-          <Modal.Body>
-            <input type="text" placeholder="ID" name="memId" maxLength="12" required />
-            <input type="password" placeholder="PASSWORD" name="memPwd" maxLength="15" required />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button type="submit" variant="outline-warning">
-              확인
-            </Button>
-          </Modal.Footer>
-        </form>
+        <Modal.Body>
+          <form onSubmit={handleLoginSubmit}>
+            <input
+              type="text"
+              placeholder="ID"
+              value={loginId}
+              onChange={(e) => setLoginId(e.target.value)} // 입력값 변경 처리
+              maxLength="12"
+              required
+            />
+            <input
+              type="password"
+              placeholder="PASSWORD"
+              value={loginPwd}
+              onChange={(e) => setLoginPwd(e.target.value)} // 입력값 변경 처리
+              maxLength="15"
+              required
+            />
+            <Modal.Footer>
+              <Button type="submit" variant="outline-warning">
+                확인
+              </Button>
+            </Modal.Footer>
+          </form>
+        </Modal.Body>
       </Modal>
 
       {/* 콘텐츠 */}
