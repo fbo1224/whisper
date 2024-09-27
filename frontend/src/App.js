@@ -15,6 +15,7 @@ const App = () => {
   /*로그인*/
   const [loginId, setLoginId] = useState(''); // 로그인 ID 상태
   const [loginPwd, setLoginPwd] = useState(''); // 로그인 비밀번호 상태
+  const [currentUser, setCurrentUser] = useState(null); // 현재 로그인한 사용자 정보 상태
   const [errorMessage, setErrorMessage] = useState(''); // 오류 메시지 상태 추가
   const [friends, setFriends] = useState([]); // 친구 목록 상태
   const [selectedFriend, setSelectedFriend] = useState(null); // 선택된 친구 상태
@@ -40,6 +41,7 @@ const App = () => {
       .then(response => {
         console.log('로그인 성공:', response.data);
         // 로그인 성공 시 처리
+        setCurrentUser(response.data); // 응답 데이터에서 사용자 정보 저장
         handleLoginClose(); // 모달 닫기
       })
       .catch(error => {
@@ -65,16 +67,16 @@ const App = () => {
 
   useEffect(() => { // 친구 목록 가져오기
     setLoading(true);
-    axios.get('http://localhost:9001/member/friends')
+    axios.get('http://localhost:9001/member/friends?memNo=${currentUser.memNo}')
     .then(response => {
-      setFriends(response.data.friends);
+      setFriends(response.data.friends || []);
       setLoading(false);
     })
     .catch(error => {
       console.error("Friend List Error:", error);
       setLoading(false);
     });
-  }, []);
+  }, [currentUser]);
 
   // 친구를 클릭했을 때 실행되는 함수
   const handleFriendClick = (friend) => {

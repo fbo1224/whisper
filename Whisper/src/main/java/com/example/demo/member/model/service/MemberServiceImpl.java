@@ -1,7 +1,10 @@
 package com.example.demo.member.model.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import com.example.demo.member.model.repository.MemberMapper;
 import com.example.demo.member.model.repository.MemberRepository;
 import com.example.demo.member.model.vo.Member;
 
@@ -13,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberServiceImpl implements MemberService {
 
 	private final MemberRepository memberRepository;
+	private final MemberMapper memberMapper;
 	
 	
 	@Override
@@ -28,5 +32,13 @@ public class MemberServiceImpl implements MemberService {
 		
 		return foundMember;
 	}
+
+
+	@Override
+	public List<Member> selectFriends(int memNo) {
+		return memberMapper.selectFriends(memNo);
+	}
+	
+	
 
 }

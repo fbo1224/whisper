@@ -42,10 +42,15 @@ public class RestMemberController {
 	
 	
 	@GetMapping("/friends")
-	public String selectFriends(){
+	public List<Member> selectFriends(int memNo){
 		
+		System.out.println("로그인한 사용자 memNo : " + memNo);
 		
-		return "친구목록 불러오기 응답";
+		List<Member> friendList = memberService.selectFriends(memNo);
+		
+		System.out.println("조회된 친구목록 : " + friendList);
+		
+		return friendList;
 		
 	}
 	
