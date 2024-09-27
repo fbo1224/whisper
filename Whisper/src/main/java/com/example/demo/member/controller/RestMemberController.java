@@ -1,10 +1,12 @@
 package com.example.demo.member.controller;
 
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,4 +39,15 @@ public class RestMemberController {
 					.body(Collections.singletonMap("message", "로그인에 실패하였습니다."));
 		}
 	}
+	
+	
+	@GetMapping("/friends")
+	public String selectFriends(){
+		
+		
+		return "친구목록 불러오기 응답";
+		
+	}
+	
+	
 }

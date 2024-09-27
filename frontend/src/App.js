@@ -16,6 +16,16 @@ const App = () => {
   const [loginId, setLoginId] = useState(''); // 로그인 ID 상태
   const [loginPwd, setLoginPwd] = useState(''); // 로그인 비밀번호 상태
   const [errorMessage, setErrorMessage] = useState(''); // 오류 메시지 상태 추가
+  const [friends, setFriends] = useState([]); // 친구 목록 상태
+  const [selectedFriend, setSelectedFriend] = useState(null); // 선택된 친구 상태
+  const [loading, setLoading] = useState(true); // 로딩 상태
+
+  // 상태 관리 (on/off 상태, 로그인 모달, 프로필 모달, 상태메시지 모달)
+  const [isOn, setIsOn] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const [showMsgModal, setShowMsgModal] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("현재 상태메시지");
 
 
   const handleLoginSubmit = (event) => {
@@ -47,23 +57,45 @@ const App = () => {
         setData(response.data); // 받은 데이터를 상태에 저장
       })
       .catch(error => {
-        console.error("There was an error fetching the data!", error);
+        console.error("fetching에러", error);
       });
 
-      
 
   }, []);  // 빈 배열로 설정하면 컴포넌트가 처음 렌더링될 때 한 번 실행됨
 
-  // 상태 관리 (on/off 상태, 로그인 모달, 프로필 모달, 상태메시지 모달)
-  const [isOn, setIsOn] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showProfileModal, setShowProfileModal] = useState(false);
-  const [showMsgModal, setShowMsgModal] = useState(false);
-  const [statusMessage, setStatusMessage] = useState("현재 상태메시지");
+  useEffect(() => { // 친구 목록 가져오기
+    setLoading(true);
+    axios.get('http://localhost:9001/member/friends')
+    .then(response => {
+      setFriends(response.data.friends);
+      setLoading(false);
+    })
+    .catch(error => {
+      console.error("Friend List Error:", error);
+      setLoading(false);
+    });
+  }, []);
+
+  // 친구를 클릭했을 때 실행되는 함수
+  const handleFriendClick = (friend) => {
+    if (friend) {
+      setSelectedFriend(friend); // 선택된 친구 상태를 업데이트
+      console.log('선택된 친구:', friend); // 클릭된 친구 정보를 콘솔에 출력
+    } else {
+      console.error("Clicked friend is undefined");
+    }
+  };
+
+  if (loading) {
+    return <div>Loading...</div>; // 로딩 중 표시
+  }
+
+  
 
   const handleOnOff = () => {
     setIsOn(prevState => !prevState);
   };
+  
   /*모달*/
   const handleLoginClose = () => setShowLoginModal(false);
   const handleLoginShow = () => setShowLoginModal(true);
@@ -159,11 +191,32 @@ const App = () => {
         {/* 친구 목록 */}
         <div id="friendList">
           <div id="friendTitle">
-            <span id="friendListTitle">친구목록</span>
+            <div id="friendListTitle"><span>친구목록</span></div>
+            <div id="myFriend"><span id="myFriend">(1/10)</span></div>
           </div>
-          <div id="myFriendTitle">
-            <span id="myFriend">(1/10)</span>
+
+          {/* 친구 목록을 div로 동적으로 렌더링, 각 div에 onClick 이벤트 추가 */}
+          <div className="friendContainer">
+            {friends.map((friend, index) => (
+            <div 
+              key={index} 
+              className="friendDiv"
+              onClick={() => handleFriendClick(friend)} // 클릭 이벤트로 친구를 선택
+            >
+            <p>{friend.name}</p> {/* 각 친구 이름을 표시 */}
           </div>
+        ))}
+      </div>
+
+      {/* 선택된 친구가 있을 경우 정보 표시 */}
+      {selectedFriend && (
+        <div>
+          <h2>선택된 친구</h2>
+          <p>이름: {selectedFriend.name}</p>
+          {/* 선택된 친구의 다른 정보 표시 가능 */}
+        </div>
+      )}
+
         </div>
 
         {/* 내 정보 */}
