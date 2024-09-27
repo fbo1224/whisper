@@ -67,15 +67,23 @@ const App = () => {
 
   useEffect(() => { // 친구 목록 가져오기
     setLoading(true);
-    axios.get('http://localhost:9001/member/friends?memNo=${currentUser.memNo}')
-    .then(response => {
-      setFriends(response.data.friends || []);
+    if (currentUser && currentUser.memNo) {
+      const memNo = currentUser.memNo;
+  
+      axios.get(`http://localhost:9001/member/friends?memNo=${memNo}`)
+        .then(response => {
+          setFriends(response.data.friends || []);
+        })
+        .catch(error => {
+          console.error("Friend List Error:", error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      console.error("Current user is not defined or memNo is missing.");
       setLoading(false);
-    })
-    .catch(error => {
-      console.error("Friend List Error:", error);
-      setLoading(false);
-    });
+    }
   }, [currentUser]);
 
   // 친구를 클릭했을 때 실행되는 함수
