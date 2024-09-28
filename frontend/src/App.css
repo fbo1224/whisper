@@ -1,6 +1,6 @@
-div, main, header, footer{
+/*div, main, header, footer{
   border: 1px solid red; box-sizing: border-box;
-}
+}*/
 
 /*header*/
 
@@ -148,7 +148,7 @@ input:focus{
 
 #myFriend{
   position:absolute;
-  float:right;
+  left:240px;
   z-index: 1;
 }
 

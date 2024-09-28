@@ -200,7 +200,7 @@ const App = () => {
         <div id="friendList">
           <div id="friendTitle">
             <div id="friendListTitle"><span>친구목록</span></div>
-            <div id="myFriend"><span id="myFriend">(1/10)</span></div>
+            <div id="myFriend"><span id="myFriend">({friends.filter(friend => friend.memStatus === 'Y').length}/{friends.length})</span></div>
           </div>
 
           {/* 친구 목록을 div로 동적으로 렌더링, 각 div에 onClick 이벤트 추가 */}
