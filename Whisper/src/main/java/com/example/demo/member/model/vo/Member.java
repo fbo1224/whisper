@@ -1,8 +1,12 @@
 package com.example.demo.member.model.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,8 +37,8 @@ public class Member {
 	private String memSort;  // 회원구분
 	private String memStatus;
 	
-	// TB_MEM_PROFILE
-    private String myMsg;
-    private String memProfile;
+	@OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+	@JsonIgnore
+    private MemberProfile memberProfile;  // 해당 회원에 연결된 프로필
 	
 }

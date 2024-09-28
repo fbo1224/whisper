@@ -237,7 +237,7 @@ const App = () => {
           <div id="profile">
             <img id="profileImg" src={profileImg} alt="Profile" />
 
-            <div id="myMsg">상태메시지가 표시됩니다.</div>
+            <div id="myMsg">상태매ㅔ시지</div>
           </div>
 
           <div id="infoLink">
