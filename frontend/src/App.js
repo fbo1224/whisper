@@ -11,7 +11,6 @@ import profileImg from './images/profile.png';
 
 
 const App = () => {
-  const [data, setData] = useState('');
   /*로그인*/
   const [loginId, setLoginId] = useState(''); // 로그인 ID 상태
   const [loginPwd, setLoginPwd] = useState(''); // 로그인 비밀번호 상태
@@ -49,22 +48,13 @@ const App = () => {
         setErrorMessage(error.response?.data.message || '로그인에 실패하였습니다.'); // 서버로부터 받은 메시지 또는 기본 메시지
       });
   };
-  
-
+  /*로그인한 사용자 확인*/
   useEffect(() => {
-
-    // 백엔드 API에 GET 요청
-    axios.get('http://localhost:9001/api/data')
-      .then(response => {
-        setData(response.data); // 받은 데이터를 상태에 저장
-      })
-      .catch(error => {
-        console.error("fetching에러", error);
-      });
-
-
-  }, []);  // 빈 배열로 설정하면 컴포넌트가 처음 렌더링될 때 한 번 실행됨
-
+    if (currentUser) {
+      console.log('로그인한 사용자 :', currentUser);
+    }
+  }, [currentUser]);
+  
   useEffect(() => { // 친구 목록 가져오기
     setLoading(true);
     if (currentUser && currentUser.memNo) {
@@ -72,6 +62,7 @@ const App = () => {
   
       axios.get(`http://localhost:9001/member/friends?memNo=${memNo}`)
         .then(response => {
+          console.log('친구 목록 데이터:', response.data.friends); // 응답 데이터 로그 확인
           setFriends(response.data.friends || []);
         })
         .catch(error => {
@@ -81,7 +72,7 @@ const App = () => {
           setLoading(false);
         });
     } else {
-      console.error("Current user is not defined or memNo is missing.");
+      console.error("친구목록 불러오기 에러");
       setLoading(false);
     }
   }, [currentUser]);
@@ -156,9 +147,16 @@ const App = () => {
             <button className="headerBtn" onClick={handleOnOff}>
               ON/OFF
             </button>
-            <button className="headerBtn" onClick={handleLoginShow}>
-              LOGIN
-            </button>
+            {currentUser != null ? (
+              <button className="headerBtn">
+                LOGOUT
+              </button>
+            ) : (
+              <button className="headerBtn" onClick={handleLoginShow}>
+                LOGIN
+              </button>
+            )}
+
           </div>
         </div>
       </header>
@@ -207,16 +205,20 @@ const App = () => {
 
           {/* 친구 목록을 div로 동적으로 렌더링, 각 div에 onClick 이벤트 추가 */}
           <div className="friendContainer">
-            {friends.map((friend, index) => (
-            <div 
-              key={index} 
-              className="friendDiv"
-              onClick={() => handleFriendClick(friend)} // 클릭 이벤트로 친구를 선택
-            >
-            <p>{friend.name}</p> {/* 각 친구 이름을 표시 */}
+            {friends.length > 0 ? (
+              friends.map((friend, index) => (
+                <div 
+                  key={index} 
+                  className="friendDiv"
+                  onClick={() => handleFriendClick(friend)} // 클릭 이벤트로 친구를 선택
+                >
+                  <p>{friend.name}</p> {/* 각 친구 이름을 표시 */}
+                </div>
+              ))
+            ) : (
+              <p>친구 목록이 없습니다.</p>
+            )}
           </div>
-        ))}
-      </div>
 
       {/* 선택된 친구가 있을 경우 정보 표시 */}
       {selectedFriend && (
@@ -304,11 +306,8 @@ const App = () => {
           </div>
         </div>
       </footer>
-    </div>
+      </div>
 
-      <h1>Data from Backend</h1>
-      <p>{data}</p> {/* 백엔드로부터 받은 데이터를 화면에 표시 */}
-  
     </div>
 
   );
