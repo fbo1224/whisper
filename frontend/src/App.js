@@ -62,8 +62,8 @@ const App = () => {
   
       axios.get(`http://localhost:9001/member/friends?memNo=${memNo}`)
         .then(response => {
-          console.log('친구 목록 데이터:', response.data.friends); // 응답 데이터 로그 확인
-          setFriends(response.data.friends || []);
+          console.log('친구 목록 데이터data:', response.data); // 응답 데이터 확인
+          setFriends(response.data || []);
         })
         .catch(error => {
           console.error("Friend List Error:", error);
@@ -212,7 +212,9 @@ const App = () => {
                   className="friendDiv"
                   onClick={() => handleFriendClick(friend)} // 클릭 이벤트로 친구를 선택
                 >
-                  <p>{friend.name}</p> {/* 각 친구 이름을 표시 */}
+                  <span>{friend.memId}</span> {/* 각 친구 이름을 표시 */}
+                  <span>{friend.memNickname}</span>
+                  <span>{friend.memStatus}</span>
                 </div>
               ))
             ) : (
@@ -223,9 +225,8 @@ const App = () => {
       {/* 선택된 친구가 있을 경우 정보 표시 */}
       {selectedFriend && (
         <div>
-          <h2>선택된 친구</h2>
-          <p>이름: {selectedFriend.name}</p>
-          {/* 선택된 친구의 다른 정보 표시 가능 */}
+          <span>USER: {selectedFriend.memNickname}</span>
+          <button class="chatBtn">채팅하기</button>
         </div>
       )}
 

@@ -216,3 +216,20 @@ input:focus{
   width: 1200px;
    height: 180px;
 }
+
+.chatBtn{
+  width:100px;
+  height:100%;
+  float:right;
+  border: none;
+  border-bottom:1px solid #FF9614;
+  color:#FF9614;
+  background-color: white;
+  font-size: 15px;
+}
+
+.chatBtn:hover{
+  background-color: #FF9614;
+  color: white;
+  font-weight: bolder;
+}
