@@ -33,4 +33,8 @@ public class Member {
 	private String memSort;  // 회원구분
 	private String memStatus;
 	
+	// TB_MEM_PROFILE
+    private String myMsg;
+    private String memProfile;
+	
 }

@@ -23,7 +23,7 @@ public class MemberServiceImpl implements MemberService {
 		String memId = member.getMemId();
 		String memPwd = member.getMemPwd();
 		
-		Member foundMember = memberRepository.findMemberWithProfile(memId, memPwd);
+		Member foundMember = memberRepository.findByMemIdAndMemPwd(memId, memPwd);
 		
 		System.out.println("login select해온값 : " + foundMember);
 		
