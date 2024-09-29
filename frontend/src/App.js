@@ -216,7 +216,6 @@ const App = () => {
                   className="friendDiv"
                   onClick={() => handleFriendClick(friend)} // 클릭 이벤트로 친구를 선택
                 >
-                  <span>{friend.memId}</span> {/* 각 친구 이름을 표시 */}
                   <span>{friend.memNickname}</span>
                   <span>{friend.memStatus}</span>
                 </div>
@@ -228,8 +227,8 @@ const App = () => {
 
       {/* 선택된 친구가 있을 경우 정보 표시 */}
       {selectedFriend && (
-        <div>
-          <span>USER: {selectedFriend.memNickname}</span>
+        <div class="friendClickDiv">
+          <span>선택한 친구: {selectedFriend.memNickname}</span>
           <button class="chatBtn">채팅하기</button>
         </div>
       )}

@@ -223,6 +223,7 @@ input:focus{
   float:right;
   border: none;
   border-bottom:1px solid #FF9614;
+  border-top: 1px solid #FF9614;
   color:#FF9614;
   background-color: white;
   font-size: 15px;
@@ -232,4 +233,13 @@ input:focus{
   background-color: #FF9614;
   color: white;
   font-weight: bolder;
+}
+
+.friendContainer{
+
+}
+
+.friendClickDiv{
+  color:gray;
+  background-color:#fde4c5;
 }
