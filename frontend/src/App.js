@@ -26,7 +26,9 @@ const App = () => {
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showMsgModal, setShowMsgModal] = useState(false);
   const [statusMessage, setStatusMessage] = useState("현재 상태메시지");
-
+  const handleLogout = () => {
+    setCurrentUser(null); // currentUser를 null로 설정
+};
 
   const handleLoginSubmit = (event) => {
     event.preventDefault(); // 기본 폼 제출 방지
@@ -148,7 +150,7 @@ const App = () => {
               ON/OFF
             </button>
             {currentUser != null ? (
-              <button className="headerBtn">
+              <button className="headerBtn" onClick={handleLogout}>
                 LOGOUT
               </button>
             ) : (
@@ -235,9 +237,8 @@ const App = () => {
         {/* 내 정보 */}
         <div id="myInfo">
           <div id="profile">
-            <img id="profileImg" src={currentUser.memProfile} alt="Profile" />
-
-            <div id="myMsg">상태매ㅔ시지</div>
+            <img id="profileImg" src={currentUser ? currentUser.memProfile : profileImg} alt="Profile" />
+            <div id="myMsg">{currentUser ? currentUser.myMsg : '상태메시지'}</div>
           </div>
 
           <div id="infoLink">
