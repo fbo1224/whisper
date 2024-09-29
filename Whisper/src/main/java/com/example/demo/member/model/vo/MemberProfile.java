@@ -1,6 +1,5 @@
 package com.example.demo.member.model.vo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,7 +29,7 @@ public class MemberProfile {
     @OneToOne
     @MapsId  // memNo를 통해 Member와 관계를 매핑
     @JoinColumn(name = "MEM_NO", referencedColumnName = "memNo", nullable = false)
-    @JsonIgnore
+    @ToString.Exclude // 순환 참조를 피하기 위해 member 제외
     private Member member;  // 해당 프로필에 연결된 회원
 
     @Column(name = "MY_MSG")

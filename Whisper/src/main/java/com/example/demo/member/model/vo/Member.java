@@ -1,6 +1,5 @@
 package com.example.demo.member.model.vo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -38,7 +37,7 @@ public class Member {
 	private String memStatus;
 	
 	@OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
-	@JsonIgnore
+	@ToString.Exclude // 순환 참조를 피하기 위해 memberProfile 제외
     private MemberProfile memberProfile;  // 해당 회원에 연결된 프로필
 	
 }
