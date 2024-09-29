@@ -26,8 +26,10 @@ const App = () => {
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showMsgModal, setShowMsgModal] = useState(false);
   const [statusMessage, setStatusMessage] = useState("현재 상태메시지");
+  // 로그아웃
   const handleLogout = () => {
     setCurrentUser(null); // currentUser를 null로 설정
+    setFriends([]); // 친구 목록 초기화
 };
 
   const handleLoginSubmit = (event) => {
