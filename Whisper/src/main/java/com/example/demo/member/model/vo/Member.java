@@ -37,11 +37,9 @@ public class Member {
 	private String memNickname;
 	private String memEmail;
 	private Date joinDate;
-	private String memSort;  // 회원구분
-	private String memStatus;
-	
-	@OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
-	@JsonManagedReference  // 부모로서 순환 참조 방지
-    private MemberProfile memberProfile;  // 해당 회원에 연결된 프로필
+	private String memSort;  // 회원구분 (탈퇴한 회원인지)
+	private String memStatus; //ON / OFF 상태 표시
+    private String myMsg;
+    private String memProfile;
 	
 }

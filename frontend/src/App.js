@@ -235,7 +235,7 @@ const App = () => {
         {/* 내 정보 */}
         <div id="myInfo">
           <div id="profile">
-            <img id="profileImg" src={profileImg} alt="Profile" />
+            <img id="profileImg" src={currentUser.memProfile} alt="Profile" />
 
             <div id="myMsg">상태매ㅔ시지</div>
           </div>
