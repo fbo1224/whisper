@@ -10,8 +10,7 @@ import com.example.demo.member.model.vo.Member;
 
 public interface MemberRepository extends JpaRepository<Member, Integer>{
 	
-	// JPQL쿼리
-	@Query("SELECT m FROM Member m JOIN FETCH m.memberProfile WHERE m.memId = :memId AND m.memPwd = :memPwd")
+	@Query("SELECT m FROM Member m JOIN FETCH m.memberProfile p WHERE m.memId = :memId AND m.memPwd = :memPwd")
 	Member findByMemIdAndMemPwdWithProfile(@Param("memId") String memId, @Param("memPwd") String memPwd);
 	
 	// Native Query

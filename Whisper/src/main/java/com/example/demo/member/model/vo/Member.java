@@ -1,6 +1,10 @@
 package com.example.demo.member.model.vo;
 
 
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,12 +36,12 @@ public class Member {
 	private String memPwd;
 	private String memNickname;
 	private String memEmail;
-	private String joinDate;
+	private Date joinDate;
 	private String memSort;  // 회원구분
 	private String memStatus;
 	
 	@OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
-	@ToString.Exclude // 순환 참조를 피하기 위해 memberProfile 제외
+	@JsonManagedReference  // 부모로서 순환 참조 방지
     private MemberProfile memberProfile;  // 해당 회원에 연결된 프로필
 	
 }

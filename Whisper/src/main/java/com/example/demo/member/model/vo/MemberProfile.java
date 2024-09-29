@@ -1,10 +1,11 @@
 package com.example.demo.member.model.vo;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -28,10 +29,9 @@ public class MemberProfile {
 
     @OneToOne
     @MapsId  // memNo를 통해 Member와 관계를 매핑
-    @JoinColumn(name = "MEM_NO", referencedColumnName = "memNo", nullable = false)
-    @ToString.Exclude // 순환 참조를 피하기 위해 member 제외
+    @JsonBackReference  // 자식으로서 순환 참조 방지
     private Member member;  // 해당 프로필에 연결된 회원
-
+    
     @Column(name = "MY_MSG")
     private String myMsg;
     
