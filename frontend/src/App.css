@@ -27,7 +27,7 @@ input:focus{
 }
 
 #header_2{
-  border-bottom: 1px solid #FF9614;
+  border-bottom: 1px solid #dec6a8;
 }
 
 #logo{
@@ -56,7 +56,7 @@ input:focus{
   border-radius:50px;
   float:right;
   margin-top:10px;
-  border: 1px solid #FF9614;
+  border: 1px solid #fff9f4;
 }
 
 .headerBtn{

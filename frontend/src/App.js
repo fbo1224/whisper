@@ -280,7 +280,7 @@ const App = () => {
           <Modal.Body>
             <input
               type="text"
-              value={statusMessage}
+              placeholder={currentUser ? currentUser.myMsg : statusMessage}
               onChange={handleMsgChange}
               maxLength="13"
               required
