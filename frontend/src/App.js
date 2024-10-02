@@ -7,6 +7,7 @@ import { Modal, Button } from 'react-bootstrap'; // Bootstrap의 Modal 사용
 
 import './App.css';
 import profileImg from './images/profile.png';
+import logoImg from './images/Logo.png';
 
 
 
@@ -136,7 +137,7 @@ const App = () => {
       {/* 헤더 */}
       <header id="header">
         <div id="header_1">
-          <span id="title">WHISPER</span>
+          <img id="logo" src={logoImg} alt='LOGO'/>
         </div>
 
         <div id="header_2">
