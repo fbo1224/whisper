@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,26 +19,32 @@ import com.example.demo.member.model.vo.Member;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
-@RestController // @Controller 대신 사용
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/member")
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class RestMemberController {
 	
 	private final MemberService memberService;
+	private final PasswordEncoder passwordEncoder;
 	
 	@PostMapping("/loginUser")
 	public ResponseEntity<?> userLogin(@RequestBody Member member, HttpSession session) {
+		String memId = member.getMemId();
+		String memPwd = member.getMemPwd(); // 인스턴스 메서드 호출
 		
-		Member loginUser = memberService.findByMemIdAndMemPwd(member);
+		System.out.println(passwordEncoder.encode(memPwd));
 		
-		if (loginUser != null) {
+		Member loginUser = memberService.findByMemId(memId);
+		
+		if (loginUser != null && passwordEncoder.matches(memPwd, loginUser.getMemPwd())) {
 			session.setAttribute("loginUser", loginUser);
 			return ResponseEntity.ok(loginUser); // 로그인 성공 시 사용자 정보를 반환
 		} else {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
 					.body(Collections.singletonMap("message", "로그인에 실패하였습니다."));
 		}
+		
 	}
 	
 	

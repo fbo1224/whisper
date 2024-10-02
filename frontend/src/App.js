@@ -64,7 +64,9 @@ const App = () => {
     if (currentUser && currentUser.memNo) {
       const memNo = currentUser.memNo;
   
-      axios.get(`http://localhost:9001/member/friends?memNo=${memNo}`)
+      axios.get(`http://localhost:9001/member/friends?memNo=${memNo}`,{
+        withCredentials: true // 인증 정보를 포함
+      })
         .then(response => {
           console.log('친구 목록 데이터data:', response.data); // 응답 데이터 확인
           setFriends(response.data || []);

@@ -18,15 +18,11 @@ public class MemberServiceImpl implements MemberService {
 	
 	
 	@Override
-	public Member findByMemIdAndMemPwd(Member member) {
+	public Member findByMemId(String memId) {
 		
-		String memId = member.getMemId();
-		String memPwd = member.getMemPwd();
-		
-		Member foundMember = memberRepository.findByMemIdAndMemPwd(memId, memPwd);
+		Member foundMember = memberRepository.findByMemId(memId);
 		
 		System.out.println("login select해온값 : " + foundMember);
-		
 		
 		return foundMember;
 	}

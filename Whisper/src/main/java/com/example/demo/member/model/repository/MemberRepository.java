@@ -10,8 +10,7 @@ import com.example.demo.member.model.vo.Member;
 
 public interface MemberRepository extends JpaRepository<Member, Integer>{
 	
-	@Query("SELECT m FROM Member m WHERE m.memId = :memId AND m.memPwd = :memPwd")
-	Member findByMemIdAndMemPwd(@Param("memId") String memId, @Param("memPwd") String memPwd);
+	Member findByMemId(String memId);
 	
 	// Native Query
 	@Query(value = "SELECT * FROM TB_MEMBER m WHERE m.MEM_NO IN (SELECT f.FRI_NO FROM TB_FRIEND f WHERE f.MEM_NO = :memNo)", nativeQuery = true)

@@ -9,7 +9,7 @@ import com.example.demo.member.model.vo.Member;
 @Service
 public interface MemberService {
 	
-	Member findByMemIdAndMemPwd(Member member);
+	Member findByMemId(String memId);
 	
 	List<Member> selectFriends(int memNo);
 }
