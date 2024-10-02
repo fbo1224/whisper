@@ -32,6 +32,12 @@ public class MemberServiceImpl implements MemberService {
 	public List<Member> selectFriends(int memNo) {
 		return memberRepository.findMembersWithFriends(memNo);
 	}
+
+
+	@Override
+	public int modifyMsg(int memNo, String myMsg) {
+		return memberRepository.updateMyMsgByMemNo(memNo, myMsg);
+	}
 	
 	
 

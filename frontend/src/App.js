@@ -15,6 +15,7 @@ const App = () => {
   /*로그인*/
   const [loginId, setLoginId] = useState(''); // 로그인 ID 상태
   const [loginPwd, setLoginPwd] = useState(''); // 로그인 비밀번호 상태
+  const [modifyMsg, setModifyMsg] = useState('');
   const [currentUser, setCurrentUser] = useState(null); // 현재 로그인한 사용자 정보 상태
   const [errorMessage, setErrorMessage] = useState(''); // 오류 메시지 상태 추가
   const [friends, setFriends] = useState([]); // 친구 목록 상태
@@ -98,6 +99,29 @@ const App = () => {
     return <div>Loading...</div>; // 로딩 중 표시
   }
 
+  useEffect(() => { // 상태메시지 수정하기
+    if (currentUser && currentUser.memNo) {
+      const memNo = currentUser.memNo;
+      const myMsg = modifyMsg;
+  
+      axios.get(`http://localhost:9001/member/modifyMsg?memNo=${memNo}`, {
+        withCredentials: true // 인증 정보를 포함
+      })
+      .then(response => {
+        console.log('수정 상태메시지:', response.data); // 응답 데이터 확인
+        setModifyMsg(response.data || []);
+      })
+      .catch(error => {
+        console.error("상태메시지 수정 오류", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+    } else {
+      console.error("상태메시지 수정 에러");
+      setLoading(false);
+    }
+  }, [currentUser]); // 의존성 배열 추가
   
 
   const handleOnOff = () => {
@@ -281,6 +305,7 @@ const App = () => {
             <input
               type="text"
               placeholder={currentUser ? currentUser.myMsg : statusMessage}
+              value={modifyMsg}
               onChange={handleMsgChange}
               maxLength="13"
               required

@@ -12,4 +12,6 @@ public interface MemberService {
 	Member findByMemId(String memId);
 	
 	List<Member> selectFriends(int memNo);
+	
+	void updateMyMsg(int memNo, String myMsg);
 }
