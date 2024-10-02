@@ -62,13 +62,13 @@ public class RestMemberController {
 	}
 	
 	@GetMapping("/modifyMsg")
-	public ResponseEntity<?> modifyMsg(int memNo, String myMsg) {
+	public int modifyMsg(int memNo, String myMsg) {
 		
 		System.out.println("상태메시지 수정");
 		
-		memberService.modifyMsg(memNo, myMsg);
+		int result = memberService.updateMyMsg(memNo, myMsg);
 		
-		return ResponseEntity.ok("상태 메시지가 수정되었습니다."); 
+		return result;
 	}
 	
 	

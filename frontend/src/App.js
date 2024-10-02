@@ -99,31 +99,6 @@ const App = () => {
     return <div>Loading...</div>; // 로딩 중 표시
   }
 
-  useEffect(() => { // 상태메시지 수정하기
-    if (currentUser && currentUser.memNo) {
-      const memNo = currentUser.memNo;
-      const myMsg = modifyMsg;
-  
-      axios.get(`http://localhost:9001/member/modifyMsg?memNo=${memNo}`, {
-        withCredentials: true // 인증 정보를 포함
-      })
-      .then(response => {
-        console.log('수정 상태메시지:', response.data); // 응답 데이터 확인
-        setModifyMsg(response.data || []);
-      })
-      .catch(error => {
-        console.error("상태메시지 수정 오류", error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-    } else {
-      console.error("상태메시지 수정 에러");
-      setLoading(false);
-    }
-  }, [currentUser]); // 의존성 배열 추가
-  
-
   const handleOnOff = () => {
     setIsOn(prevState => !prevState);
   };
@@ -144,9 +119,29 @@ const App = () => {
 
   const handleMsgSubmit = (event) => {
     event.preventDefault();
-    // 상태 메시지를 서버에 보내는 로직 추가 가능
-    alert(`상태 메시지가 변경되었습니다: ${statusMessage}`);
-    handleMsgClose();
+    
+    // 상태 메시지를 서버에 보내는 로직
+    if (currentUser && currentUser.memNo) {
+      const memNo = currentUser.memNo;
+      axios.post(`http://localhost:9001/member/modifyMsg`, {
+        memNo: memNo,
+        myMsg: statusMessage // 변경된 상태 메시지
+      }, {
+        withCredentials: true // 쿠키를 포함하도록 설정
+      })
+      .then(response => {
+        console.log('상태 메시지 변경 성공:', response.data);
+        setModifyMsg(statusMessage); // 변경된 메시지 상태 업데이트
+        alert(`상태 메시지가 변경되었습니다: ${statusMessage}`);
+      })
+      .catch(error => {
+        console.error('상태 메시지 변경 실패:', error);
+        alert('상태 메시지 변경에 실패했습니다.');
+      })
+      .finally(() => {
+        handleMsgClose(); // 모달 닫기
+      });
+    }
   };
 
 
@@ -306,7 +301,7 @@ const App = () => {
               type="text"
               placeholder={currentUser ? currentUser.myMsg : statusMessage}
               value={modifyMsg}
-              onChange={handleMsgChange}
+              onChange={(e) => setModifyMsg(e.target.value)} // 입력값 변경 처리
               maxLength="13"
               required
             />

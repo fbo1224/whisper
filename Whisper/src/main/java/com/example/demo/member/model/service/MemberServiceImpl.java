@@ -3,6 +3,7 @@ package com.example.demo.member.model.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.member.model.repository.MemberRepository;
 import com.example.demo.member.model.vo.Member;
@@ -34,11 +35,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
-	@Override
-	public int modifyMsg(int memNo, String myMsg) {
-		return memberRepository.updateMyMsgByMemNo(memNo, myMsg);
-	}
-	
+    @Override
+    @Transactional // 트랜잭션 관리
+    public int updateMyMsg(int memNo, String myMsg) {
+        return memberRepository.updateMyMsgByMemNo(memNo, myMsg);
+    }
 	
 
 }
