@@ -1,9 +1,9 @@
-// import React from 'react';
-
 import React, { useState, useEffect } from 'react';  // React와 훅을 임포트
 import axios from 'axios';  // axios를 임포트
 import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap 사용을 위한 CSS import
 import { Modal, Button } from 'react-bootstrap'; // Bootstrap의 Modal 사용
+import { useNavigate } from 'react-router-dom'; // 페이지 이동을 위한 useNavigate 임포트
+
 
 import './App.css';
 import profileImg from './images/profile.png';
@@ -28,6 +28,10 @@ const App = () => {
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showMsgModal, setShowMsgModal] = useState(false);
   const [statusMessage, setStatusMessage] = useState("현재 상태메시지");
+
+  // useNavigate 훅 사용
+  const navigate = useNavigate();
+
   // 로그아웃
   const handleLogout = () => {
     setCurrentUser(null); // currentUser를 null로 설정
@@ -80,7 +84,6 @@ const App = () => {
           setLoading(false);
         });
     } else {
-      console.error("친구목록 불러오기 에러");
       setLoading(false);
     }
   }, [currentUser]);
@@ -101,6 +104,11 @@ const App = () => {
 
   const handleOnOff = () => {
     setIsOn(prevState => !prevState);
+  };
+
+  // 회원가입 페이지로 이동하는 함수
+  const handleJoin = () => {
+    navigate('/memberJoin'); // "/join" 경로로 페이지 이동
   };
   
   /*모달*/
@@ -170,19 +178,25 @@ const App = () => {
           ></div>
 
           <div id="loginArea">
-            <button className="headerBtn" onClick={handleOnOff}>
-              ON/OFF
-            </button>
             {currentUser != null ? (
+              <>
+              <button className="headerBtn" onClick={handleOnOff}>
+                ON/OFF
+              </button>
               <button className="headerBtn" onClick={handleLogout}>
                 LOGOUT
               </button>
+              </>
             ) : (
+              <>
+              <button className="headerBtn" onClick={handleJoin}>
+                JOIN
+              </button>
               <button className="headerBtn" onClick={handleLoginShow}>
                 LOGIN
               </button>
+              </>
             )}
-
           </div>
         </div>
       </header>
@@ -333,7 +347,6 @@ const App = () => {
         </div>
       </footer>
       </div>
-
     </div>
 
   );
