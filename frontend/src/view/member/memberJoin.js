@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/member/memberJoin.css';
+import '../../css/member/memberJoin.css';
 
 const memberJoin = () => {
   return (
