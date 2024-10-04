@@ -133,14 +133,17 @@ const App = () => {
       const memNo = currentUser.memNo;
       axios.post(`http://localhost:9001/member/modifyMsg`, {
         memNo: memNo,
-        myMsg: statusMessage // 변경된 상태 메시지
+        myMsg: modifyMsg // 변경된 상태 메시지
       }, {
+        headers: {
+        'Content-Type': 'application/json', // Content-Type 설정
+      },
         withCredentials: true // 쿠키를 포함하도록 설정
       })
       .then(response => {
         console.log('상태 메시지 변경 성공:', response.data);
-        setModifyMsg(statusMessage); // 변경된 메시지 상태 업데이트
-        alert(`상태 메시지가 변경되었습니다: ${statusMessage}`);
+        setModifyMsg(modifyMsg);
+        alert(`상태 메시지가 변경되었습니다: ${modifyMsg}`);
       })
       .catch(error => {
         console.error('상태 메시지 변경 실패:', error);

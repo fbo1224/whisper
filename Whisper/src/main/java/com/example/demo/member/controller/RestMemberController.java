@@ -61,7 +61,7 @@ public class RestMemberController {
 		
 	}
 	
-	@GetMapping("/modifyMsg")
+	@PostMapping("/modifyMsg")
 	public int modifyMsg(int memNo, String myMsg) {
 		
 		System.out.println("상태메시지 수정");

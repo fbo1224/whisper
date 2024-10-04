@@ -41,9 +41,10 @@ public class SecurityConfig {
             .and()
             .csrf(csrf -> csrf.disable()) // CSRF 비활성화
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/member/loginUser").permitAll() // 로그인 엔드포인트 허용
-                .requestMatchers("/member/friends").permitAll() // 친구 목록 엔드포인트는 인증 필요
-                .anyRequest().authenticated() // 나머지 요청은 인증 필요
+                .requestMatchers("/member/loginUser").permitAll() // 엔드포인트 허용
+                .requestMatchers("/member/friends").permitAll()
+                .requestMatchers("/member/modifyMsg").permitAll()
+                .anyRequest().authenticated()
             );
 
         return http.build();
