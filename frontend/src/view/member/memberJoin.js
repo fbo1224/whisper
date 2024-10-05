@@ -3,6 +3,7 @@ import '../../css/member/memberJoin.css';
 import Header from '../common/header';
 import Footer from '../common/footer';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap 사용을 위한 CSS import
 
 const MemberJoin = () => {
   const [joinId, setJoinId] = useState('');
@@ -73,18 +74,10 @@ const MemberJoin = () => {
                     required
                     value={joinId}
                     onChange={(e) => setJoinId(e.target.value)}
-                    onBlur={() => {
-                      const memNameReg = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|]{2,10}$/;
-                      if (!memNameReg.test(joinNickname)) {
-                        setErrorMessage('X');
-                      } else {
-                        setErrorMessage('O');
-                      }
-                    }}
                     autoFocus
                   />
                 </td>
-                <td>{errorMessage && <span>{errorMessage}</span>}</td>
+                <td id="idArea"><button class="btn btn-sm btn-primary" type="button" /*onClick={idCheck}*/>중복확인</button></td>
               </tr>
 
               <tr>
@@ -143,15 +136,9 @@ const MemberJoin = () => {
                     required
                     value={joinEmail}
                     onChange={(e) => setJoinEmail(e.target.value)}
-                    onKeyUp={() => {
-                      const emailReg = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-                      if (emailReg.test(joinEmail)) {
-                        document.getElementById('emailArea').innerHTML = '<button class="btn btn-sm btn-primary" type="button" onClick={emailCheck}>중복확인</button>';
-                      }
-                    }}
                   />
                 </td>
-                <td id="emailArea"></td>
+                <td id="emailArea"><button class="outline-warning" type="button">메일인증</button></td>
               </tr>
             </tbody>
           </table>
