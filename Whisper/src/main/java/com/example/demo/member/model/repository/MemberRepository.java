@@ -22,5 +22,6 @@ public interface MemberRepository extends JpaRepository<Member, Integer>{
 	// 상태메시지 변경
 	@Modifying
 	@Query("UPDATE Member m SET m.myMsg = :myMsg WHERE m.memNo = :memNo")
-	int updateMyMsgByMemNo(@Param("memNo") int memNo, @Param("myMsg") String myMsg);
+	int updateMyMsgByMemNo(@Param("myMsg") String myMsg, @Param("memNo") int memNo);
+
 }

@@ -62,11 +62,16 @@ public class RestMemberController {
 	}
 	
 	@PostMapping("/modifyMsg")
-	public int modifyMsg(int memNo, String myMsg) {
+	public int modifyMsg(@RequestBody Member member) {
 		
 		System.out.println("상태메시지 수정");
 		
-		int result = memberService.updateMyMsg(memNo, myMsg);
+		System.out.println(member.getMyMsg());
+		
+		String myMsg = member.getMyMsg();
+		int memNo = member.getMemNo();
+		
+		int result = memberService.updateMyMsg(myMsg, memNo);
 		
 		return result;
 	}

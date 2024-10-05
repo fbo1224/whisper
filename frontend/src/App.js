@@ -121,10 +121,6 @@ const App = () => {
   const handleMsgClose = () => setShowMsgModal(false);
   const handleMsgShow = () => setShowMsgModal(true);
 
-  const handleMsgChange = (event) => {
-    setStatusMessage(event.target.value);
-  };
-
   const handleMsgSubmit = (event) => {
     event.preventDefault();
     

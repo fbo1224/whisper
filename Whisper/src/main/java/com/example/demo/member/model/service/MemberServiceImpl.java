@@ -35,11 +35,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
-    @Override
-    @Transactional // 트랜잭션 관리
-    public int updateMyMsg(int memNo, String myMsg) {
-        return memberRepository.updateMyMsgByMemNo(memNo, myMsg);
-    }
+	@Override
+	@Transactional // 트랜잭션 관리
+	public int updateMyMsg(String myMsg, int memNo) {
+	    return memberRepository.updateMyMsgByMemNo(myMsg, memNo); // 순서 맞춤
+	}
 	
 
 }
