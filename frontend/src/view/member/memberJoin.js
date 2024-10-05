@@ -5,15 +5,18 @@ import Footer from '../common/footer';
 import axios from 'axios';
 
 const MemberJoin = () => {
-  const [userName, setUserName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
+  const [joinId, setJoinId] = useState('');
+  const [joinPwd, setJoinPwd] = useState('');
+  const [joinNickname, setJoinNickname] = useState('');
+  const [joinEmail, setJoinEmail] = useState('');
+
   const [codeInfo, setCodeInfo] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const sendEmail = async () => {
     alert('이메일로 전송된 4자리 숫자코드를 입력해주세요');
     try {
-      const result = await axios.post('sendMail', { email: userEmail });
+      const result = await axios.post('sendMail', { email: joinEmail });
       setCodeInfo(result.data);
     } catch (error) {
       alert('메일 전송 중 오류가 발생했습니다. 다시 시도해 주세요.');
@@ -34,8 +37,23 @@ const MemberJoin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // 여기서 폼 제출 로직을 추가할 수 있습니다.
-    // 예: axios.post('/api/member', { userName, userEmail });
+
+    axios.post('http://localhost:9001/member/user.join', {
+      memId: joinId,
+      memPwd: joinPwd,
+      memNickName: joinNickname,
+      memEmail: joinEmail,
+    }, {
+      withCredentials: true, // 쿠키를 포함하도록 설정
+    })
+      .then(response => {
+        console.log('회원가입 성공:', response.data);
+        // 로그인 성공 시 처리
+        // setCurrentUser(response.data); // 응답 데이터에서 사용자 정보 저장
+      })
+      .catch(error => {
+        console.error('회원가입 실패:', error);
+      });
   };
 
   return (
@@ -46,20 +64,50 @@ const MemberJoin = () => {
           <table align="center" id="table">
             <tbody>
 
-              <tr>
+            <tr>
                 <td>ID</td>
                 <td>
-                  <input/>
+                  <input
+                    type="text"
+                    maxLength="10"
+                    required
+                    value={joinId}
+                    onChange={(e) => setJoinId(e.target.value)}
+                    onBlur={() => {
+                      const memNameReg = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|]{2,10}$/;
+                      if (!memNameReg.test(joinNickname)) {
+                        setErrorMessage('X');
+                      } else {
+                        setErrorMessage('O');
+                      }
+                    }}
+                    autoFocus
+                  />
                 </td>
-                <td></td>
+                <td>{errorMessage && <span>{errorMessage}</span>}</td>
               </tr>
 
               <tr>
                 <td>PASSWORD</td>
                 <td>
-                  <input/>
+                  <input
+                    type="password"
+                    maxLength="10"
+                    required
+                    value={joinPwd}
+                    onChange={(e) => setJoinPwd(e.target.value)}
+                    onBlur={() => {
+                      const memNameReg = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|]{2,10}$/;
+                      if (!memNameReg.test(joinPwd)) {
+                        setErrorMessage('X');
+                      } else {
+                        setErrorMessage('O');
+                      }
+                    }}
+                    autoFocus
+                  />
                 </td>
-                <td></td>
+                <td>{errorMessage && <span>{errorMessage}</span>}</td>
               </tr>
 
 
@@ -68,16 +116,16 @@ const MemberJoin = () => {
                 <td>
                   <input
                     type="text"
-                    maxLength="5"
+                    maxLength="10"
                     required
-                    value={userName}
-                    onChange={(e) => setUserName(e.target.value)}
+                    value={joinNickname}
+                    onChange={(e) => setJoinNickname(e.target.value)}
                     onBlur={() => {
-                      const memNameReg = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|]{2,15}$/;
-                      if (!memNameReg.test(userName)) {
-                        setErrorMessage('');
+                      const memNameReg = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|]{2,10}$/;
+                      if (!memNameReg.test(joinNickname)) {
+                        setErrorMessage('X');
                       } else {
-                        setErrorMessage('');
+                        setErrorMessage('O');
                       }
                     }}
                     autoFocus
@@ -93,11 +141,11 @@ const MemberJoin = () => {
                     type="text"
                     placeholder="@포함하여 입력해주세요."
                     required
-                    value={userEmail}
-                    onChange={(e) => setUserEmail(e.target.value)}
+                    value={joinEmail}
+                    onChange={(e) => setJoinEmail(e.target.value)}
                     onKeyUp={() => {
                       const emailReg = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-                      if (emailReg.test(userEmail)) {
+                      if (emailReg.test(joinEmail)) {
                         document.getElementById('emailArea').innerHTML = '<button class="btn btn-sm btn-primary" type="button" onClick={emailCheck}>중복확인</button>';
                       }
                     }}
@@ -114,9 +162,6 @@ const MemberJoin = () => {
             <button type="reset" className="btn btn-sm btn-secondary">재입력</button>
             <button type="submit" className="btn btn-sm btn-primary" disabled id="memJoin">입력완료</button>
           </div>
-
-          <input type="hidden" name="userNickname" value="" />
-          <input type="hidden" name="userProfile" value="" />
 
           <br /><br />
         </form>

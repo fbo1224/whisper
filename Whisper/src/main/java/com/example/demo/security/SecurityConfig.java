@@ -44,6 +44,7 @@ public class SecurityConfig {
                 .requestMatchers("/member/loginUser").permitAll() // 엔드포인트 허용
                 .requestMatchers("/member/friends").permitAll()
                 .requestMatchers("/member/modifyMsg").permitAll()
+                .requestMatchers("/member/user.join").permitAll()
                 .anyRequest().authenticated()
             );
 

@@ -76,5 +76,10 @@ public class RestMemberController {
 		return result;
 	}
 	
+//	@PostMapping("/user.join")
+//	public String joinUser() {
+//		
+//	}
+	
 	
 }
