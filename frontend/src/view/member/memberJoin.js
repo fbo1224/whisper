@@ -77,7 +77,7 @@ const MemberJoin = () => {
                     autoFocus
                   />
                 </td>
-                <td id="idArea"><button class="btn btn-sm btn-primary" type="button" /*onClick={idCheck}*/>중복확인</button></td>
+                <td id="idArea"><button class="btn btn-warning" type="button" /*onClick={idCheck}*/>중복확인</button></td>
               </tr>
 
               <tr>
@@ -138,7 +138,7 @@ const MemberJoin = () => {
                     onChange={(e) => setJoinEmail(e.target.value)}
                   />
                 </td>
-                <td id="emailArea"><button class="outline-warning" type="button">메일인증</button></td>
+                <td id="emailArea"><button class="btn btn-warning" type="button">메일인증</button></td>
               </tr>
             </tbody>
           </table>
