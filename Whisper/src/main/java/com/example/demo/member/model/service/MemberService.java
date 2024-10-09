@@ -14,4 +14,6 @@ public interface MemberService {
 	List<Member> selectFriends(int memNo);
 	
 	int updateMyMsg(String myMsg, int memNo);
+	
+	boolean checkId(String memId);
 }

@@ -40,6 +40,12 @@ public class MemberServiceImpl implements MemberService {
 	public int updateMyMsg(String myMsg, int memNo) {
 	    return memberRepository.updateMyMsgByMemNo(myMsg, memNo); // 순서 맞춤
 	}
+
+
+	@Override
+	public boolean checkId(String memId) {
+		 return !memberRepository.existsByMemId(memId);
+	}
 	
 
 }

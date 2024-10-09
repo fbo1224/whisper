@@ -23,5 +23,8 @@ public interface MemberRepository extends JpaRepository<Member, Integer>{
 	@Modifying
 	@Query("UPDATE Member m SET m.myMsg = :myMsg WHERE m.memNo = :memNo")
 	int updateMyMsgByMemNo(@Param("myMsg") String myMsg, @Param("memNo") int memNo);
+	
+	// 아이디 중복확인
+	boolean existsByMemId(String memId);
 
 }

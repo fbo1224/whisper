@@ -1,7 +1,9 @@
 package com.example.demo.member.controller;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -76,10 +78,26 @@ public class RestMemberController {
 		return result;
 	}
 	
+	@PostMapping("/idCheck")
+	public boolean checkId(String memId) {
+		
+		System.out.println("아이디 중복확인 파라미터값 : " + memId);
+		
+	    boolean isAble = memberService.checkId(memId);
+
+
+	    return isAble;
+	}
+
+	
+	
+
+}
+	
+	
 //	@PostMapping("/user.join")
 //	public String joinUser() {
 //		
 //	}
 	
 	
-}

@@ -45,6 +45,7 @@ public class SecurityConfig {
                 .requestMatchers("/member/friends").permitAll()
                 .requestMatchers("/member/modifyMsg").permitAll()
                 .requestMatchers("/member/user.join").permitAll()
+                .requestMatchers("/member/idCheck").permitAll()
                 .anyRequest().authenticated()
             );
 

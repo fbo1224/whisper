@@ -3,7 +3,8 @@ import '../../css/member/memberJoin.css';
 import Header from '../common/header';
 import Footer from '../common/footer';
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap 사용을 위한 CSS import
+import 'bootstrap/dist/css/bootstrap.min.css';
+import $ from 'jquery';
 
 const MemberJoin = () => {
   const [joinId, setJoinId] = useState('');
@@ -11,7 +12,6 @@ const MemberJoin = () => {
   const [joinNickname, setJoinNickname] = useState('');
   const [joinEmail, setJoinEmail] = useState('');
 
-  const [codeInfo, setCodeInfo] = useState('');
   const [nnErrorMessage, setNnErrorMessage] = useState('');
   const [pwdErrorMessage, setPwdErrorMessage] = useState('');
   const [joinReadonly, setJoinReadonly] = useState({
@@ -19,27 +19,29 @@ const MemberJoin = () => {
     email: false,
   });
 
-  const sendEmail = async () => {
-    alert('이메일로 전송된 4자리 숫자코드를 입력해주세요');
-    try {
-      const result = await axios.post('sendMail', { email: joinEmail });
-      setCodeInfo(result.data);
-    } catch (error) {
-      alert('메일 전송 중 오류가 발생했습니다. 다시 시도해 주세요.');
-    }
+  // ID 중복확인
+  const idCheck = () => {
+
+    const idInput = $('#idInput');
+  
+    axios.post('http://localhost:9001/member/idCheck', { memId: joinId }) // 일반적으로 POST방식은 데이터를 요청본문에 담기 때문에 JSON사용
+      .then(response => {
+        if (response.data === 1) {
+          alert('사용 가능한 ID입니다.');
+          idInput.attr('readonly', true);
+        } else {
+          alert('이미 사용 중인 ID입니다.');
+          setJoinId('');
+          idInput.focus();
+        }
+      })
+      .catch(error => {
+        console.error('ID 체크 중 오류 발생:', error);
+        alert('ID 체크에 실패했습니다. 다시 시도해 주세요.');
+      });
   };
 
-  const codeCheck = () => {
-    const emailCode = document.getElementById('code').value;
 
-    if (codeInfo !== emailCode) {
-      alert('인증번호가 일치하지 않습니다!');
-      sendEmail();
-    } else {
-      alert('인증번호가 일치합니다');
-      document.getElementById('memJoin').disabled = false;
-    }
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -74,6 +76,7 @@ const MemberJoin = () => {
                 <td>ID</td>
                 <td>
                   <input
+                    id="idInput"
                     type="text"
                     maxLength="12"
                     required
@@ -83,13 +86,13 @@ const MemberJoin = () => {
                     placeholder='4자리 이상 입력'
                     onBlur={() => {
                       const memIdReg = /^[a-zA-Z0-9]{4,12}$/;
-                      if (!memIdReg.test(joinPwd)) {
+                      if (!memIdReg.test(joinId)) {
                         setJoinId('');
                       }
                     }}
                   />
                 </td>
-                <td id="idArea"><button class="joinCheckBtn" type="button" /*onClick={idCheck}*/>중복확인</button></td>
+                <td id="idArea"><button class="joinCheckBtn" type="button" onClick={idCheck}>중복확인</button></td>
               </tr>
 
               <tr>
@@ -165,7 +168,7 @@ const MemberJoin = () => {
                     onChange={(e) => setJoinEmail(e.target.value)}
                     onBlur={() => {
                       const memEmailReg = /^[a-zA-Z0-9]{4,}@[a-zA-Z0-9]{4,}\.[a-zA-Z]{2,}$/;
-                      if (!memEmailReg.test(joinPwd)) {
+                      if (!memEmailReg.test(joinEmail)) {
                         setJoinEmail('');
                       }
                     }}
