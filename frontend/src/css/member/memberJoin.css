@@ -22,6 +22,7 @@ td{
     padding-left: 10px;
     width:110px;
     text-align: center;
+    color: #FF9614;
 }
 
 #title{
@@ -39,3 +40,19 @@ td{
     border-collapse: separate;
     border-spacing : 15px;
 }
+
+.joinCheckBtn{
+    border: 1px solid #FF9614;
+    color: #FF9614;
+    background-color: #fff9f4;
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+}
+
+.joinCheckBtn:hover{
+    background-color: #FF9614;
+    color: #fff9f4;
+    font-weight: bolder;
+}
+

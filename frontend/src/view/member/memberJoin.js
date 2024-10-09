@@ -12,7 +12,12 @@ const MemberJoin = () => {
   const [joinEmail, setJoinEmail] = useState('');
 
   const [codeInfo, setCodeInfo] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [nnErrorMessage, setNnErrorMessage] = useState('');
+  const [pwdErrorMessage, setPwdErrorMessage] = useState('');
+  const [joinReadonly, setJoinReadonly] = useState({
+    id: false,
+    email: false,
+  });
 
   const sendEmail = async () => {
     alert('이메일로 전송된 4자리 숫자코드를 입력해주세요');
@@ -70,14 +75,21 @@ const MemberJoin = () => {
                 <td>
                   <input
                     type="text"
-                    maxLength="10"
+                    maxLength="12"
                     required
                     value={joinId}
                     onChange={(e) => setJoinId(e.target.value)}
                     autoFocus
+                    placeholder='4자리 이상 입력'
+                    onBlur={() => {
+                      const memIdReg = /^[a-zA-Z0-9]{4,12}$/;
+                      if (!memIdReg.test(joinPwd)) {
+                        setJoinId('');
+                      }
+                    }}
                   />
                 </td>
-                <td id="idArea"><button class="btn btn-warning" type="button" /*onClick={idCheck}*/>중복확인</button></td>
+                <td id="idArea"><button class="joinCheckBtn" type="button" /*onClick={idCheck}*/>중복확인</button></td>
               </tr>
 
               <tr>
@@ -89,18 +101,27 @@ const MemberJoin = () => {
                     required
                     value={joinPwd}
                     onChange={(e) => setJoinPwd(e.target.value)}
-                    onBlur={() => {
-                      const memNameReg = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|]{2,10}$/;
-                      if (!memNameReg.test(joinPwd)) {
-                        setErrorMessage('X');
+                    placeholder='4자리 이상 입력'
+                    onKeyUp={() => {
+                      const memPwdReg = /^[ㄱ-ㅎ가-힣a-zA-Z0-9!@#$%^&~]{4,10}$/;
+
+                      if (!memPwdReg.test(joinPwd)) {
+                        setPwdErrorMessage('✗');
                       } else {
-                        setErrorMessage('O');
+                        setPwdErrorMessage('✓');
+                      }
+                    }}
+                    onBlur={() => {
+                      const memPwdReg = /^[ㄱ-ㅎ가-힣a-zA-Z0-9!@#$%^&~]{4,10}$/;
+
+                      if (!memPwdReg.test(joinPwd)) {
+                        setJoinPwd('');
                       }
                     }}
                     autoFocus
                   />
                 </td>
-                <td>{errorMessage && <span>{errorMessage}</span>}</td>
+                <td>{pwdErrorMessage && <span style={{ color: pwdErrorMessage === '✗' ? 'red' : 'green' }}>{pwdErrorMessage}</span>}</td>
               </tr>
 
 
@@ -109,22 +130,28 @@ const MemberJoin = () => {
                 <td>
                   <input
                     type="text"
-                    maxLength="10"
+                    maxLength="15"
                     required
                     value={joinNickname}
                     onChange={(e) => setJoinNickname(e.target.value)}
-                    onBlur={() => {
-                      const memNameReg = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|]{2,10}$/;
-                      if (!memNameReg.test(joinNickname)) {
-                        setErrorMessage('X');
+                    onKeyUp={() => {
+                      const memNicknameReg = /^[ㄱ-ㅎ가-힣a-zA-Z0-9!@#$%^&~]{4,15}$/;
+                      if (!memNicknameReg.test(joinNickname)) {
+                        setNnErrorMessage('✗');
                       } else {
-                        setErrorMessage('O');
+                        setNnErrorMessage('✓');
+                      }
+                    }}
+                    onBlur={() => {
+                      const memNicknameReg = /^[a-zA-Z0-9!@#$%^&~*()<>-_+=]{4,15}$/;
+                      if (!memNicknameReg.test(joinNickname)) {
+                        setJoinNickname('');
                       }
                     }}
                     autoFocus
                   />
                 </td>
-                <td>{errorMessage && <span>{errorMessage}</span>}</td>
+                <td>{nnErrorMessage && <span style={{ color: nnErrorMessage === '✗' ? 'red' : 'green' }}>{nnErrorMessage}</span>}</td>
               </tr>
 
               <tr>
@@ -136,9 +163,16 @@ const MemberJoin = () => {
                     required
                     value={joinEmail}
                     onChange={(e) => setJoinEmail(e.target.value)}
+                    onBlur={() => {
+                      const memEmailReg = /^[a-zA-Z0-9]{4,}@[a-zA-Z0-9]{4,}\.[a-zA-Z]{2,}$/;
+                      if (!memEmailReg.test(joinPwd)) {
+                        setJoinEmail('');
+                      }
+                    }}
+                    autoFocus
                   />
                 </td>
-                <td id="emailArea"><button class="btn btn-warning" type="button">메일인증</button></td>
+                <td id="emailArea"><button class="joinCheckBtn" type="button">메일인증</button></td>
               </tr>
             </tbody>
           </table>
@@ -146,11 +180,9 @@ const MemberJoin = () => {
           <br /><br />
 
           <div align="center">
-            <button type="reset" className="btn btn-sm btn-secondary">재입력</button>
-            <button type="submit" className="btn btn-sm btn-primary" disabled id="memJoin">입력완료</button>
+            <button type="submit" className="btn btn-sm btn-primary" disabled id="memJoin">회원가입</button>
           </div>
 
-          <br /><br />
         </form>
       </div>
       <Footer />
