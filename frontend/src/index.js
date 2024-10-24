@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import { BrowserRouter, Routes, Route  } from 'react-router-dom'; // BrowserRouter 임포트
 import MemberJoin from './view/member/memberJoin'; // 회원가입 페이지 컴포넌트 임포트
+import ChatComponent from './view/chat/ChatComponent'; // ChatComponent 임포트
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -12,6 +13,7 @@ root.render(
     <Routes>
         <Route path="/" element={<App />} /> {/* 메인 페이지 */}
         <Route path="/memberJoin" element={<MemberJoin />} /> {/* 회원가입 페이지 */}
+        <Route path="/chat" element={<ChatComponent />} /> {/* 채팅창 띄우기 */}
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

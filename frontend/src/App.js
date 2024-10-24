@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap 사용을 위한 CSS
 import { Modal, Button } from 'react-bootstrap'; // Bootstrap의 Modal 사용
 import { useNavigate } from 'react-router-dom'; // 페이지 이동을 위한 useNavigate 임포트
 
-
 import './App.css';
 import profileImg from './images/profile.png';
 import logoImg from './images/Logo.png';
@@ -102,6 +101,22 @@ const App = () => {
     return <div>Loading...</div>; // 로딩 중 표시
   }
 
+  // 친구를 클릭했을 때 채팅 팝업 창 열기
+  const handleChatClick  = (friend) => {
+    if (friend) {
+      const chatWindow = window.open(
+        `/chat?friend=${friend.memNickname}`, 
+        'chatWindow', 
+        'width=400,height=400'
+      );
+
+      // 팝업 창이 닫힐 때 콜백을 등록할 수 있음
+      chatWindow.onbeforeunload = () => {
+        console.log("채팅 창이 닫혔습니다.");
+      };
+    }
+  };
+
   const handleOnOff = () => {
     setIsOn(prevState => !prevState);
   };
@@ -153,6 +168,10 @@ const App = () => {
 
 
   return (
+
+    
+
+
     <div className="App">
       <div>
       {/* 메시지 표시 */}
@@ -262,9 +281,11 @@ const App = () => {
 
       {/* 선택된 친구가 있을 경우 정보 표시 */}
       {selectedFriend && (
-        <div class="friendClickDiv">
+        <div className="friendClickDiv">
           <span>선택한 친구: {selectedFriend.memNickname}</span>
-          <button class="chatBtn">채팅하기</button>
+          <button className="chatBtn" onClick={() => handleChatClick (selectedFriend)}>
+            채팅하기
+          </button>
         </div>
       )}
 
