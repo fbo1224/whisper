@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
+import '../../css/chat/ChatComponent.css';
+
 const ChatComponent = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
@@ -41,9 +43,15 @@ const ChatComponent = () => {
     }
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSendMessage(); // 엔터 키가 눌리면 메시지 보내기
+    }
+  };
+
   return (
     <div>
-      <h3>{friendNickname}님과 채팅 중</h3>
+      <div id="chatTitle">{friendNickname}님과 채팅 중</div>
       <div className="chat-box">
         {messages.map((msg, index) => (
           <div key={index}>
@@ -57,8 +65,9 @@ const ChatComponent = () => {
         value={inputMessage}
         onChange={(e) => setInputMessage(e.target.value)}
         placeholder="메시지를 입력하세요"
+        onKeyPress={handleKeyPress} // 엔터 키 이벤트 추가
       />
-      <button onClick={handleSendMessage}>보내기</button>
+      <button id="senderBtn" onClick={handleSendMessage}>보내기</button>
     </div>
   );
 };
