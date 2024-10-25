@@ -89,7 +89,13 @@ public class RestMemberController {
 	    return isAble;
 	}
 
-	
+	@PostMapping("/onOff")
+	public void changeStatus() {
+		
+		System.out.println("변경성공");
+		
+		
+	}
 	
 
 }
